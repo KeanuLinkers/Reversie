@@ -25,26 +25,29 @@ namespace Reversie
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            Brush bordkleur = new SolidBrush(Color.FromArgb(139, 69, 19));
-            Brush lijnkleur = new SolidBrush(Color.Black);
-            int xpositie, ypositie, breedte, hoogte;
-            xpositie = panel1.Location.X;
-            ypositie = panel1.Location.Y;
-            breedte = panel1.Width;
-            hoogte = panel1.Height;
-            e.Graphics.FillRectangle(bordkleur, xpositie, ypositie, breedte, hoogte);
+            //Brush bordkleur = new SolidBrush(Color.FromArgb(139, 69, 19));
+            //Brush lijnkleur = new SolidBrush(Color.Black);
+            //int xpositie, ypositie, breedte, hoogte;
+            //xpositie = panel1.Location.X;
+            //ypositie = panel1.Location.Y;
+            //breedte = panel1.Width;
+            //hoogte = panel1.Height;
+            //e.Graphics.FillRectangle(bordkleur, xpositie, ypositie, breedte, hoogte);
 
-            e.Graphics.FillRectangle(lijnkleur, 35, 175, panel1.Width, 10);
-            e.Graphics.FillRectangle(lijnkleur, 35, 350, panel1.Width, 10);
-            e.Graphics.FillRectangle(lijnkleur, 35, 525, panel1.Width, 10);
-            e.Graphics.FillRectangle(lijnkleur, 233, 55, 10, panel1.Height);
-            e.Graphics.FillRectangle(lijnkleur, 467, 55, 10, panel1.Height);
+            //e.Graphics.FillRectangle(lijnkleur, 35, 175, panel1.Width, 10);
+            //e.Graphics.FillRectangle(lijnkleur, 35, 350, panel1.Width, 10);
+            //e.Graphics.FillRectangle(lijnkleur, 35, 525, panel1.Width, 10);
+            //e.Graphics.FillRectangle(lijnkleur, 233, 55, 10, panel1.Height);
+            //e.Graphics.FillRectangle(lijnkleur, 467, 55, 10, panel1.Height);
 
-            for (int i = 0; i < boardSize; i++)
+            
+
+            for (int i = 0; i <= boardSize; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                for (int j = 0; j <= boardSize; j++)
                 {
-
+                    e.Graphics.DrawLine(Pens.White, new Point(0, circleDiameter * j), new Point(panel1.Width, circleDiameter * j));
+                    e.Graphics.DrawLine(Pens.White, new Point(circleDiameter * i, 0), new Point(circleDiameter * i, panel1.Height));
                 }
             }
         }
