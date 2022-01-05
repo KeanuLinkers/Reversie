@@ -150,6 +150,37 @@ namespace Reversie
 
         private bool FindDownLeft(int i, int j)
         {
+            if (IsInsideBoard(i - 1, j+1))
+            {
+                if (blueTurn)
+                {
+                    while (board[i - 1, j+1] == 2)
+                    {
+                        i--;
+                        j++;
+                        if (IsInsideBoard(i - 1, j + 1))
+                        {
+                            if (board[i - 1, j + 1] == 1)
+                                return true;
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    while (board[i - 1, j+ 1] == 1)
+                    {
+                        i--;
+                        j++;
+                        if (IsInsideBoard(i - 1, j+1))
+                        {
+                            if (board[i - 1, j+ 1] == 2)
+                                return true;
+                        }
+                    }
+                    return false;
+                }
+            }
             return false;
         }
 
