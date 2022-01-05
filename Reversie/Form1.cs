@@ -18,7 +18,8 @@ namespace Reversie
         int aantal = 0;
 
 
-
+        // the board is a 2D array of integers, where 0 represents an empty space, 1 represents taken by blue
+        // 2 represents taken by red, and 3 represents a possible move for the current player
         int[,] board;
      
         public Form1()
@@ -57,33 +58,154 @@ namespace Reversie
         {
             return (board[i, j] == 0);
         }
-
-        private bool CheckRow(int i, int j)
+        private bool IsInsideBoard(int i, int j)
         {
-            int k;
-            if ( i == 0 )
-            {
-                k = 0;
-                while (k < board.GetLength(0))
-                {
+            return ((i >= 0) && (j >= 0) && (i < board.GetLength(0)) && (j < board.GetLength(1)));
+        }
 
+        //private bool CheckRow(int i, int j)
+        //{
+        //    int k;
+        //    if ( i == 0 )
+        //    {
+        //        k = 0;
+        //        while (k < board.GetLength(0))
+        //        {
+
+        //        }
+        //    }
+        //}
+
+        private bool FindRight(int i, int j)
+        {
+
+            if (IsInsideBoard(i + 1, j))
+            {
+                if (blueTurn)
+                {
+                    while (board[i + 1, j] == 2)
+                    {
+                        i++;
+                        if (IsInsideBoard(i + 1, j))
+                        {
+                            if (board[i + 1, j] == 1)
+                                return true;
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    while (board[i + 1, j] == 1)
+                    {
+                        i++;
+                        if (IsInsideBoard(i + 1, j))
+                        {
+                            if (board[i + 1, j] == 2)
+                                return true;
+                        }
+                    }
+                    return false;
                 }
             }
+            return false;
+        }
+
+        private bool FindDownRight(int i, int j)
+        {
+            if (IsInsideBoard(i + 1, j+1))
+            {
+                while (board[i + 1, j+1] == 2)
+                {
+                    i++;
+                    j++;
+                    if (IsInsideBoard(i + 1, j+1))
+                    {
+                        if (board[i + 1, j+1] == 1)
+                            return true;
+                    }
+                }
+                return false;
+            }
+            return false;
+        }
+
+        private bool FindDown(int i, int j)
+        {
+            if (IsInsideBoard(i, j + 1))
+            {
+                while (board[i, j + 1] == 2)
+                {
+                    j++;
+                    if (IsInsideBoard(i, j + 1))
+                    {
+                        if (board[i, j + 1] == 1)
+                            return true;
+                    }
+                }
+                return false;
+            }
+            return false;
+        }
+
+        private bool FindDownLeft(int i, int j)
+        {
+            return false;
+        }
+
+        private bool FindLeft(int i, int j)
+        {
+            return false;
+        }
+        private bool FindUpLeft(int i, int j)
+        {
+            return false;
+        }
+        private bool FindUp(int i, int j)
+        {
+            return false;
+        }
+        private bool FindUpRight(int i, int j)
+        {
+            return false;
         }
 
         // look at adjacent spaces to find opponents color.
         // if found, look in the direction of the adjacent space for your own color, to terminate the run mark space as a legal move.
         private bool FindAdjacentRuns(int i, int j)
         {
-            // several if-statements need to be inserted to check if we're on the edges of the board
-            // we shouldn't look past the board, there's probably a cleaner solution than a different if-statement for each corner/edge
-            if (i == 0)
+            if(blueTurn)
             {
-                if(blueTurn)
+                // use IsInsideBoard method to check whether position is on the board
+                if (IsInsideBoard(i+1, j))
                 {
+                    // from the empty space, see if there's a red space to the right
+                    if (board[i + 1, j] == 2)
+                        // if so, start looking in the right direction for a blue
+                        if (FindRight(i + 1, j))
+                            return true;
 
                 }
+                else if (IsInsideBoard(i+1, j+1))
+                {
+                    if (board[i + 1, j + 1] == 2)
+                        if (FindDownRight(i + 1, j + 1))
+                            return true;
+                }
+                else if (IsInsideBoard(i, j + 1))
+                {
+                    if (board[i , j + 1] == 2)
+                        if (FindDown(i , j + 1))
+                            return true;
+                }
+                else if (IsInsideBoard(i - 1, j + 1))
+                {
+                    if (board[i - 1, j + 1] == 2)
+                        if (FindDown(i - 1, j + 1))
+                            return true;
+                }
             }
+            
         }
 
         
@@ -95,6 +217,8 @@ namespace Reversie
                 // look for runs in the adjacent spaces (up, down, left, right and diagonals)
                 FindAdjacentRuns(i, j);
             }
+            else
+                return false;
         }
         
         // if a space is a legal move for the current player, it is marked with a 3 in the array
