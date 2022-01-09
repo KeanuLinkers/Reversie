@@ -15,6 +15,7 @@ namespace Reversie
     {
         int boardSize, circleDiameter, rowCount, colCount;
         bool boardCreated, blueTurn;
+        
 
 
         // the board is a 2D array of integers, where 0 represents an empty space, 1 represents taken by blue
@@ -45,6 +46,7 @@ namespace Reversie
                     }
                 }
             }
+
 
             MarkLegalMoves(board);
             boardCreated = false;
@@ -87,6 +89,8 @@ namespace Reversie
                         if (board[i + 1, j] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -100,6 +104,8 @@ namespace Reversie
                         if (board[i + 1, j] == 2)
                             return true;
                     }
+                    else 
+                        break;
                 }
                 return false;
             }
@@ -119,6 +125,8 @@ namespace Reversie
                         if (board[i + 1, j + 1] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -133,6 +141,8 @@ namespace Reversie
                         if (board[i + 1, j + 1] == 2)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -151,6 +161,8 @@ namespace Reversie
                         if (board[i, j + 1] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -164,6 +176,8 @@ namespace Reversie
                         if (board[i, j + 1] == 2)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -183,6 +197,8 @@ namespace Reversie
                         if (board[i - 1, j + 1] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -197,6 +213,8 @@ namespace Reversie
                         if (board[i - 1, j + 1] == 2)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -215,6 +233,8 @@ namespace Reversie
                         if (board[i - 1, j] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -228,6 +248,8 @@ namespace Reversie
                         if (board[i - 1, j] == 2)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -246,6 +268,8 @@ namespace Reversie
                         if (board[i - 1, j - 1] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -260,6 +284,8 @@ namespace Reversie
                         if (board[i - 1, j - 1] == 2)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -276,6 +302,8 @@ namespace Reversie
                         if (board[i, j - 1] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -289,6 +317,8 @@ namespace Reversie
                         if (board[i, j - 1] == 2)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -306,6 +336,8 @@ namespace Reversie
                         if (board[i + 1, j - 1] == 1)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -320,6 +352,8 @@ namespace Reversie
                         if (board[i + 1, j - 1] == 2)
                             return true;
                     }
+                    else
+                        break;
                 }
                 return false;
             }
@@ -341,43 +375,43 @@ namespace Reversie
                             return true;
 
                 }
-                else if (IsInsideBoard(i + 1, j + 1))
+                if (IsInsideBoard(i + 1, j + 1))
                 {
                     if (board[i + 1, j + 1] == 2)
                         if (FindDownRight(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i, j + 1))
+                if (IsInsideBoard(i, j + 1))
                 {
                     if (board[i, j + 1] == 2)
                         if (FindDown(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i - 1, j + 1))
                 {
                     if (board[i - 1, j + 1] == 2)
                         if (FindDownLeft(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i - 1, j + 1))
                 {
                     if (board[i - 1, j] == 2)
                         if (FindLeft(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i - 1, j - 1))
                 {
                     if (board[i - 1, j - 1] == 2)
                         if (FindUpLeft(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i , j - 1))
                 {
                     if (board[i, j - 1] == 2)
                         if (FindUp(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i + 1, j - 1))
+                if (IsInsideBoard(i + 1, j - 1))
                 {
                     if (board[i + 1, j - 1] == 2)
                         if (FindUpRight(i, j))
@@ -398,43 +432,43 @@ namespace Reversie
                             return true;
 
                 }
-                else if (IsInsideBoard(i + 1, j + 1))
+                if (IsInsideBoard(i + 1, j + 1))
                 {
                     if (board[i + 1, j + 1] == 1)
                         if (FindDownRight(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i, j + 1))
+                if (IsInsideBoard(i, j + 1))
                 {
                     if (board[i, j + 1] == 1)
                         if (FindDown(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i - 1, j + 1))
                 {
                     if (board[i - 1, j + 1] == 1)
                         if (FindDownLeft(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i - 1, j + 1))
                 {
                     if (board[i - 1, j] == 1)
                         if (FindLeft(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i - 1, j - 1))
                 {
                     if (board[i - 1, j - 1] == 1)
                         if (FindUpLeft(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i - 1, j + 1))
+                if (IsInsideBoard(i, j - 1))
                 {
                     if (board[i, j - 1] == 1)
                         if (FindUp(i, j))
                             return true;
                 }
-                else if (IsInsideBoard(i + 1, j - 1))
+                if (IsInsideBoard(i + 1, j - 1))
                 {
                     if (board[i + 1, j - 1] == 1)
                         if (FindUpRight(i, j))
@@ -459,9 +493,22 @@ namespace Reversie
                 return false;
         }
 
+        private void ResetLegalMoves(int[,] board)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i, j] == 3)
+                        board[i, j] = 0;
+                }
+            }
+        }
+
         // if a space is a legal move for the current player, it is marked with a 3 in the array
         private void MarkLegalMoves(int[,] board)
         {
+            ResetLegalMoves(board);
             for (int i = 0; i < board.GetLength(0); i++)
             {
                 for (int j = 0; j < board.GetLength(1); j++)
@@ -493,6 +540,7 @@ namespace Reversie
                 this.label1.ForeColor = System.Drawing.Color.Blue;
             }
             blueTurn = !blueTurn;
+            MarkLegalMoves(board);
             panel1.Invalidate();
 
         }
@@ -527,7 +575,7 @@ namespace Reversie
                         else if (board[i, j] == 2)
                             e.Graphics.FillEllipse(Brushes.Red, circleDiameter * i, circleDiameter * j, circleDiameter, circleDiameter);
                         else if (board[i, j] == 3)
-                            e.Graphics.FillEllipse(Brushes.Green, circleDiameter * i, circleDiameter * j, circleDiameter, circleDiameter);
+                            e.Graphics.DrawEllipse(Pens.Green, circleDiameter * i, circleDiameter * j,circleDiameter , circleDiameter);
 
                     }
                 }
