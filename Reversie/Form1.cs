@@ -64,29 +64,24 @@ namespace Reversie
             return ((i >= 0) && (j >= 0) && (i < board.GetLength(0)) && (j < board.GetLength(1)));
         }
 
-        //private bool CheckRow(int i, int j)
-        //{
-        //    int k;
-        //    if ( i == 0 )
-        //    {
-        //        k = 0;
-        //        while (k < board.GetLength(0))
-        //        {
 
-        //        }
-        //    }
-        //}
-
-        private bool FindRight(int i, int j)
+        private bool FindInDirection(int i, int j, int k, int l)
         {
             if (blueTurn)
             {
-                while (board[i + 1, j] == 2)
+                while (board[i + k, j + l] == 2)
                 {
-                    i++;
-                    if (IsInsideBoard(i + 1, j))
+                    if (k > 0)
+                        i++;
+                    if (k < 0)
+                        i--;
+                    if (l > 0)
+                        j++;
+                    if (l < 0)
+                        j--;
+                    if (IsInsideBoard(i + k, j + l))
                     {
-                        if (board[i + 1, j] == 1)
+                        if (board[i + k, j + l] == 1)
                             return true;
                     }
                     else
@@ -96,260 +91,19 @@ namespace Reversie
             }
             else
             {
-                while (board[i + 1, j] == 1)
+                while (board[i + k, j + l] == 1)
                 {
-                    i++;
-                    if (IsInsideBoard(i + 1, j))
+                    if (k > 0)
+                        i++;
+                    if (k < 0)
+                        i--;
+                    if (l > 0)
+                        j++;
+                    if (l < 0)
+                        j--;
+                    if (IsInsideBoard(i + k, j + l))
                     {
-                        if (board[i + 1, j] == 2)
-                            return true;
-                    }
-                    else 
-                        break;
-                }
-                return false;
-            }
-
-        }
-
-        private bool FindDownRight(int i, int j)
-        {
-            if (blueTurn)
-            {
-                while (board[i + 1, j + 1] == 2)
-                {
-                    j++;
-                    i++;
-                    if (IsInsideBoard(i + 1, j + 1))
-                    {
-                        if (board[i + 1, j + 1] == 1)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-            else
-            {
-                while (board[i + 1, j + 1] == 1)
-                {
-                    j++;
-                    i++;
-                    if (IsInsideBoard(i + 1, j + 1))
-                    {
-                        if (board[i + 1, j + 1] == 2)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-
-        }
-
-        private bool FindDown(int i, int j)
-        {
-            if (blueTurn)
-            {
-                while (board[i, j + 1] == 2)
-                {
-                    j++;
-                    if (IsInsideBoard(i, j + 1))
-                    {
-                        if (board[i, j + 1] == 1)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-            else
-            {
-                while (board[i, j + 1] == 1)
-                {
-                    j++;
-                    if (IsInsideBoard(i, j + 1))
-                    {
-                        if (board[i, j + 1] == 2)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-
-        }
-
-        private bool FindDownLeft(int i, int j)
-        {
-            if (blueTurn)
-            {
-                while (board[i - 1, j + 1] == 2)
-                {
-                    i--;
-                    j++;
-                    if (IsInsideBoard(i - 1, j + 1))
-                    {
-                        if (board[i - 1, j + 1] == 1)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-            else
-            {
-                while (board[i - 1, j + 1] == 1)
-                {
-                    i--;
-                    j++;
-                    if (IsInsideBoard(i - 1, j + 1))
-                    {
-                        if (board[i - 1, j + 1] == 2)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-
-        }
-
-        private bool FindLeft(int i, int j)
-        {
-            if (blueTurn)
-            {
-                while (board[i - 1, j] == 2)
-                {
-                    i--;
-                    if (IsInsideBoard(i - 1, j))
-                    {
-                        if (board[i - 1, j] == 1)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-            else
-            {
-                while (board[i - 1, j] == 1)
-                {
-                    i--;
-                    if (IsInsideBoard(i - 1, j))
-                    {
-                        if (board[i - 1, j] == 2)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-
-        }
-        private bool FindUpLeft(int i, int j)
-        {
-            if (blueTurn)
-            {
-                while (board[i - 1, j - 1] == 2)
-                {
-                    j--;
-                    i--;
-                    if (IsInsideBoard(i - 1, j - 1))
-                    {
-                        if (board[i - 1, j - 1] == 1)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-            else
-            {
-                while (board[i - 1, j - 1] == 1)
-                {
-                    i--;
-                    j--;
-                    if (IsInsideBoard(i - 1, j - 1))
-                    {
-                        if (board[i - 1, j - 1] == 2)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-        }
-        private bool FindUp(int i, int j)
-        {
-            if (blueTurn)
-            {
-                while (board[i, j - 1] == 2)
-                {
-                    j--;
-                    if (IsInsideBoard(i, j - 1))
-                    {
-                        if (board[i, j - 1] == 1)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-            else
-            {
-                while (board[i, j - 1] == 1)
-                {
-                    j--;
-                    if (IsInsideBoard(i, j - 1))
-                    {
-                        if (board[i, j - 1] == 2)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-        }
-        private bool FindUpRight(int i, int j)
-        {
-            if (blueTurn)
-            {
-                while (board[i + 1, j - 1] == 2)
-                {
-                    j--;
-                    i++;
-                    if (IsInsideBoard(i + 1, j - 1))
-                    {
-                        if (board[i + 1, j - 1] == 1)
-                            return true;
-                    }
-                    else
-                        break;
-                }
-                return false;
-            }
-            else
-            {
-                while (board[i + 1, j - 1] == 1)
-                {
-                    i++;
-                    j--;
-                    if (IsInsideBoard(i + 1, j - 1))
-                    {
-                        if (board[i + 1, j - 1] == 2)
+                        if (board[i + k, j + l] == 2)
                             return true;
                     }
                     else
@@ -361,61 +115,19 @@ namespace Reversie
 
         // look at adjacent spaces to find opponents color.
         // if found, look in the direction of the adjacent space for your own color, to terminate the run mark space as a legal move.
-        private bool FindAdjacentRuns(int i, int j)
+        private bool FindAdjacentRuns(int i, int j, int k, int l)
         {
             if (blueTurn)
             {
                 // use IsInsideBoard method to check whether position is on the board
-                if (IsInsideBoard(i + 1, j))
+                if (IsInsideBoard(i + k, j + l))
                 {
                     // from the empty space, see if there's a red space to the right
-                    if (board[i + 1, j] == 2)
+                    if (board[i + k, j + l] == 2)
                         // if so, start looking in the right direction for a blue
-                        if (FindRight(i, j))
+                        if (FindInDirection(i, j, k, l))
                             return true;
 
-                }
-                if (IsInsideBoard(i + 1, j + 1))
-                {
-                    if (board[i + 1, j + 1] == 2)
-                        if (FindDownRight(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i, j + 1))
-                {
-                    if (board[i, j + 1] == 2)
-                        if (FindDown(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i - 1, j + 1))
-                {
-                    if (board[i - 1, j + 1] == 2)
-                        if (FindDownLeft(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i - 1, j + 1))
-                {
-                    if (board[i - 1, j] == 2)
-                        if (FindLeft(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i - 1, j - 1))
-                {
-                    if (board[i - 1, j - 1] == 2)
-                        if (FindUpLeft(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i , j - 1))
-                {
-                    if (board[i, j - 1] == 2)
-                        if (FindUp(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i + 1, j - 1))
-                {
-                    if (board[i + 1, j - 1] == 2)
-                        if (FindUpRight(i, j))
-                            return true;
                 }
                 return false;
             }
@@ -423,62 +135,17 @@ namespace Reversie
             else // For the redturn
             {
                 // use IsInsideBoard method to check whether position is on the board
-                if (IsInsideBoard(i + 1, j))
+                if (IsInsideBoard(i + k, j + l))
                 {
-                    // from the empty space, see if there's a red space to the right
-                    if (board[i + 1, j] == 1)
-                        // if so, start looking in the right direction for a blue
-                        if (FindRight(i, j))
+                    if (board[i + k, j + l] == 1)
+                        if (FindInDirection(i, j, k, l))
                             return true;
 
-                }
-                if (IsInsideBoard(i + 1, j + 1))
-                {
-                    if (board[i + 1, j + 1] == 1)
-                        if (FindDownRight(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i, j + 1))
-                {
-                    if (board[i, j + 1] == 1)
-                        if (FindDown(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i - 1, j + 1))
-                {
-                    if (board[i - 1, j + 1] == 1)
-                        if (FindDownLeft(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i - 1, j + 1))
-                {
-                    if (board[i - 1, j] == 1)
-                        if (FindLeft(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i - 1, j - 1))
-                {
-                    if (board[i - 1, j - 1] == 1)
-                        if (FindUpLeft(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i, j - 1))
-                {
-                    if (board[i, j - 1] == 1)
-                        if (FindUp(i, j))
-                            return true;
-                }
-                if (IsInsideBoard(i + 1, j - 1))
-                {
-                    if (board[i + 1, j - 1] == 1)
-                        if (FindUpRight(i, j))
-                            return true;
                 }
                 return false;
             }
 
         }
-
 
         private bool CheckLegalMove(int i, int j)
         {
@@ -487,7 +154,25 @@ namespace Reversie
             if (IsEmptySpace(i, j))
             {
                 // look for runs in the adjacent spaces (up, down, left, right and diagonals)
-                return FindAdjacentRuns(i, j);
+                if (FindAdjacentRuns(i, j, 1, 0)) // right
+                    return true;
+                if (FindAdjacentRuns(i, j, 1, 1)) // down-right
+                    return true;
+                if (FindAdjacentRuns(i, j, 0, 1)) // down
+                    return true;
+                if (FindAdjacentRuns(i, j, -1, 1)) // down-left
+                    return true;
+                if (FindAdjacentRuns(i, j, -1, 0)) // left
+                    return true;
+                if (FindAdjacentRuns(i, j, -1, -1)) // up-left
+                    return true;
+                if (FindAdjacentRuns(i, j, 0, -1)) // up
+                    return true;
+                if (FindAdjacentRuns(i, j, 1, -1)) // up-right
+                    return true;
+                else
+                    return false;
+
             }
             else
                 return false;
