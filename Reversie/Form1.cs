@@ -14,7 +14,7 @@ namespace Reversie
     public partial class Form1 : Form
     {
         int boardSize, circleDiameter, rowCount, colCount;
-        bool boardCreated, blueTurn;
+        bool boardCreated, blueTurn, help;
         
 
 
@@ -29,6 +29,8 @@ namespace Reversie
             colCount = boardSize;
             board = new int[rowCount, colCount];
             blueTurn = true;
+            help = false;
+            
 
 
 
@@ -178,6 +180,12 @@ namespace Reversie
                 return false;
         }
 
+        private void Help_Click(object sender, EventArgs e)
+        {
+            help =! help;
+            panel1.Invalidate();
+        }
+
         private void ResetLegalMoves(int[,] board)
         {
             for (int i = 0; i < board.GetLength(0); i++)
@@ -259,7 +267,7 @@ namespace Reversie
                             e.Graphics.FillEllipse(Brushes.Blue, circleDiameter * i, circleDiameter * j, circleDiameter, circleDiameter);
                         else if (board[i, j] == 2)
                             e.Graphics.FillEllipse(Brushes.Red, circleDiameter * i, circleDiameter * j, circleDiameter, circleDiameter);
-                        else if (board[i, j] == 3)
+                        else if (board[i, j] == 3 && help)
                             e.Graphics.DrawEllipse(Pens.Green, circleDiameter * i, circleDiameter * j,circleDiameter , circleDiameter);
 
                     }
