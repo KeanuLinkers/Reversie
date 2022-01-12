@@ -13,9 +13,8 @@ namespace Reversie
 {
     public partial class Form1 : Form
     {
-        int boardSize, circleDiameter, rowCount, colCount;
+        int boardSize, circleWidth, circleHeight, rowCount, colCount;
         bool boardCreated, blueTurn, help;
-        
 
 
         // the board is a 2D array of integers, where 0 represents an empty space, 1 represents taken by blue
@@ -25,14 +24,11 @@ namespace Reversie
         public Form1()
         {
             boardSize = 6;
-            rowCount = boardSize;
             colCount = boardSize;
-            board = new int[rowCount, colCount];
+            rowCount = boardSize;
+            board = new int[colCount, rowCount];
             blueTurn = true;
             help = false;
-
-
-
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
@@ -49,37 +45,11 @@ namespace Reversie
                 }
             }
 
-            //board[0, 0] = 1;
-            //board[1, 0] = 2;
-            //board[2, 0] = 2;
-            //board[3, 0] = 2;
-            //board[4, 0] = 2;
-            //board[0, 1] = 0;
-            ////board[1, 1] = 2;
-            ////board[2, 1] = 2;
-            ////board[3, 1] = 2;
-            ////board[4, 1] = 1;
-            ////board[0, 2] = 1;
-            ////board[1, 2] = 2;
-            ////board[2, 2] = 0;
-            ////board[3, 2] = 2;
-            ////board[4, 2] = 1;
-            ////board[0, 3] = 1;
-            ////board[1, 3] = 2;
-            ////board[2, 3] = 2;
-            ////board[3, 3] = 2;
-            ////board[4, 3] = 1;
-            ////board[0, 4] = 1;
-            ////board[1, 4] = 1;
-            ////board[2, 4] = 1;
-            ////board[3, 4] = 1;
-            ////board[4, 4] = 1;
-
-
             MarkLegalMoves(board);
             boardCreated = false;
             InitializeComponent();
-            circleDiameter = panel1.Width / boardSize;
+            circleWidth = panel1.Width / colCount;
+            circleHeight = panel1.Height / rowCount;
 
         }
 
@@ -300,8 +270,8 @@ namespace Reversie
         {
 
             int g, h;
-            g = e.X / circleDiameter;
-            h = e.Y / circleDiameter;
+            g = e.X / circleWidth;
+            h = e.Y / circleHeight;
 
             if (board[g, h] == 3)
             {
@@ -339,29 +309,29 @@ namespace Reversie
 
             if (!boardCreated)
             {
-                for (int i = 0; i <= boardSize; i++)
+                for (int i = 0; i <= rowCount; i++)
                 {
-                    e.Graphics.DrawLine(Pens.White, new Point(0, circleDiameter * i), new Point(panel1.Width, circleDiameter * i));
+                    e.Graphics.DrawLine(Pens.White, new Point(0, circleHeight * i), new Point(panel1.Width, circleHeight * i));
                 }
 
-                for (int i = 0; i <= boardSize; i++)
+                for (int i = 0; i <= colCount; i++)
                 {
-                    e.Graphics.DrawLine(Pens.White, new Point(circleDiameter * i, 0), new Point(circleDiameter * i, panel1.Height));
+                    e.Graphics.DrawLine(Pens.White, new Point(circleWidth * i, 0), new Point(circleWidth * i, panel1.Height));
                 }
             }
 
-            for (int i = 0; i < boardSize; i++)
+            for (int i = 0; i < colCount; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                for (int j = 0; j < rowCount; j++)
                 {
                     if (board[i, j] != 0)
                     {
                         if (board[i, j] == 1)
-                            e.Graphics.FillEllipse(Brushes.Blue, circleDiameter * i, circleDiameter * j, circleDiameter, circleDiameter);
+                            e.Graphics.FillEllipse(Brushes.Blue, circleWidth * i, circleHeight * j, circleWidth, circleHeight);
                         else if (board[i, j] == 2)
-                            e.Graphics.FillEllipse(Brushes.Red, circleDiameter * i, circleDiameter * j, circleDiameter, circleDiameter);
+                            e.Graphics.FillEllipse(Brushes.Red, circleWidth * i, circleHeight * j, circleWidth, circleHeight);
                         else if (board[i, j] == 3 && help)
-                            e.Graphics.DrawEllipse(Pens.Green, circleDiameter * i, circleDiameter * j,circleDiameter , circleDiameter);
+                            e.Graphics.DrawEllipse(Pens.Green, circleWidth * i, circleHeight * j, circleWidth, circleHeight);
 
                     }
                 }
