@@ -30,7 +30,7 @@ namespace Reversie
             board = new int[rowCount, colCount];
             blueTurn = true;
             help = false;
-            
+
 
 
 
@@ -49,6 +49,32 @@ namespace Reversie
                 }
             }
 
+            //board[0, 0] = 1;
+            //board[1, 0] = 2;
+            //board[2, 0] = 2;
+            //board[3, 0] = 2;
+            //board[4, 0] = 2;
+            //board[0, 1] = 0;
+            ////board[1, 1] = 2;
+            ////board[2, 1] = 2;
+            ////board[3, 1] = 2;
+            ////board[4, 1] = 1;
+            ////board[0, 2] = 1;
+            ////board[1, 2] = 2;
+            ////board[2, 2] = 0;
+            ////board[3, 2] = 2;
+            ////board[4, 2] = 1;
+            ////board[0, 3] = 1;
+            ////board[1, 3] = 2;
+            ////board[2, 3] = 2;
+            ////board[3, 3] = 2;
+            ////board[4, 3] = 1;
+            ////board[0, 4] = 1;
+            ////board[1, 4] = 1;
+            ////board[2, 4] = 1;
+            ////board[3, 4] = 1;
+            ////board[4, 4] = 1;
+
 
             MarkLegalMoves(board);
             boardCreated = false;
@@ -57,15 +83,82 @@ namespace Reversie
 
         }
 
+        private void MakeMove(int i, int j)
+        {
+            if (blueTurn)
+            {
+                for (int k = -1; k <= 1; k++)
+                {
+                    for (int l = -1; l <= 1; l++)
+                    {
+                        if (FindAdjacentRuns(i, j, k, l))
+                        {
+                            int m, p;
+                            m = i;
+                            p = j;
+                            while (board[m + k, p + l] == 2)
+                            {
+                                if (IsInsideBoard(i + k, j + l))
+                                {
+                                    if (board[m + k, p + l] == 2)
+                                        board[m + k, p + l] = 1;
+                                }
+                                if (k > 0)
+                                    m++;
+                                if (k < 0)
+                                    m--;
+                                if (l > 0)
+                                    p++;
+                                if (l < 0)
+                                    p--;
+                            }
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                for (int k = -1; k <= 1; k++)
+                {
+                    for (int l = -1; l <= 1; l++)
+                    {
+                        if (FindAdjacentRuns(i, j, k, l))
+                        {
+                            int m, p;
+                            m = i;
+                            p = j;
+                            while (board[m + k, p + l] == 1)
+                            {
+                                if (IsInsideBoard(i + k, j + l))
+                                {
+                                    if (board[m + k, p + l] == 1)
+                                        board[m + k, p + l] = 2;
+                                }
+                                if (k > 0)
+                                    m++;
+                                if (k < 0)
+                                    m--;
+                                if (l > 0)
+                                    p++;
+                                if (l < 0)
+                                    p--;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private bool IsEmptySpace(int i, int j)
         {
             return (board[i, j] == 0);
         }
+
         private bool IsInsideBoard(int i, int j)
         {
             return ((i >= 0) && (j >= 0) && (i < board.GetLength(0)) && (j < board.GetLength(1)));
         }
-
 
         private bool FindInDirection(int i, int j, int k, int l)
         {
@@ -115,8 +208,6 @@ namespace Reversie
             }
         }
 
-        // look at adjacent spaces to find opponents color.
-        // if found, look in the direction of the adjacent space for your own color, to terminate the run mark space as a legal move.
         private bool FindAdjacentRuns(int i, int j, int k, int l)
         {
             if (blueTurn)
@@ -180,12 +271,6 @@ namespace Reversie
                 return false;
         }
 
-        private void Help_Click(object sender, EventArgs e)
-        {
-            help =! help;
-            panel1.Invalidate();
-        }
-
         private void ResetLegalMoves(int[,] board)
         {
             for (int i = 0; i < board.GetLength(0); i++)
@@ -198,7 +283,6 @@ namespace Reversie
             }
         }
 
-        // if a space is a legal move for the current player, it is marked with a 3 in the array
         private void MarkLegalMoves(int[,] board)
         {
             ResetLegalMoves(board);
@@ -219,26 +303,35 @@ namespace Reversie
             g = e.X / circleDiameter;
             h = e.Y / circleDiameter;
 
-            if (blueTurn)
+            if (board[g, h] == 3)
             {
-                board[g, h] = 1;
-                this.label1.Text = "Rood is aan zet";
-                this.label1.ForeColor = System.Drawing.Color.Red;
-            }
+                if (blueTurn)
+                {
+                    board[g, h] = 1;
+                    MakeMove(g, h);
+                    this.label1.Text = "Rood is aan zet";
+                    this.label1.ForeColor = System.Drawing.Color.Red;
+                }
 
-            else
-            {
-                board[g, h] = 2;
-                this.label1.Text = "Blauw is aan zet";
-                this.label1.ForeColor = System.Drawing.Color.Blue;
+                else
+                {
+                    board[g, h] = 2;
+                    MakeMove(g, h);
+                    this.label1.Text = "Blauw is aan zet";
+                    this.label1.ForeColor = System.Drawing.Color.Blue;
+                }
+                blueTurn = !blueTurn;
+                MarkLegalMoves(board);
+                panel1.Invalidate();
             }
-            blueTurn = !blueTurn;
-            MarkLegalMoves(board);
-            panel1.Invalidate();
 
         }
 
-
+        private void Help_Click(object sender, EventArgs e)
+        {
+            help = !help;
+            panel1.Invalidate();
+        }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
