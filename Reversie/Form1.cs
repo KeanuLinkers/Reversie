@@ -24,7 +24,10 @@ namespace Reversie
 
         public Form1()
         {
+            // edit this to change board size
             boardSize = 6;
+
+            //these specifically if you want a non-square board
             colCount = boardSize;
             rowCount = boardSize;
             board = new int[colCount, rowCount];
